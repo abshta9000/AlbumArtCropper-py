@@ -1,6 +1,10 @@
 # AlbumArtCropper-py
 A simple python script that takes mp3s' album art and crops them to a 1:1 aspect ratio. I started this project when I realized that the album art for all my music was in the wrong aspect ratio. I didnt really like that since it looked awkward on my music player.
 
+## What's new
+- User input failsafes
+- Album art can now be encoded with PNG or JPEG
+
 ## Installation and Initial running
 This project utilizes the eyeD3 libraries as well as Pillow, and you will need to installl then with pip beforehand. Here is the command
 
