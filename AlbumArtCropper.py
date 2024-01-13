@@ -3,6 +3,8 @@ import io
 from PIL import Image
 import eyed3
 
+imgformat = ""
+
 def crop_and_replace_album_art(input_file):
     # load MP3 file
     audiofile = eyed3.load(input_file)
@@ -27,7 +29,7 @@ def crop_and_replace_album_art(input_file):
 
         # turn to binary
         buffered = io.BytesIO()
-        cropped_image.save(buffered, format="PNG") # TODO - have user be able to choose image encoding
+        cropped_image.save(buffered, format=imgformat.upper()) # TODO - have user be able to choose image encoding
         new_image_data = buffered.getvalue()
 
 
@@ -62,12 +64,28 @@ def directory(start_path):
         if os.path.isfile(file_path):
             crop_and_replace_album_art(file_path)
          
-print("Wlecome to the super album art cropper (only tested on windows)")
-usrinput = input("Would you like to crop all mp3's in a directory, directory and subdirectory, or just a singular file? (d = directory, f = file, s = subdirectories) ")
+print("Welcome to the super album art cropper (only tested on windows)")
+while (True):
+    usrinput = input("Would you like to encode with PNG or JPEG (j - jpeg, p - png)? ")
+    if usrinput == "j":
+        imgformat = "jpeg"
+        break
+    elif usrinput == "p":
+        imgformat = "png"
+        break
+    else:
+        print("Invalid parameter")
 
-if usrinput == "s":
-    subdirectories(input("Enter base directory path (no quotes): "))
-elif usrinput == "f":
-    crop_and_replace_album_art(input("Enter file path (no quotes): "))
-elif usrinput == "d":
-    directory(input("Enter directory path (no quotes): "))
+while (True):
+    usrinput = input("Would you like to crop all mp3's in a directory, directory and subdirectory, or just a singular file? (d = directory, f = file, s = subdirectories) ")
+    if usrinput == "s":
+        subdirectories(input("Enter base directory path (no quotes): "))
+        break
+    elif usrinput == "f":
+        crop_and_replace_album_art(input("Enter file path (no quotes): "))
+        break
+    elif usrinput == "d":
+        directory(input("Enter directory path (no quotes): "))
+        break
+    else:
+        print("Invalid parameter")
