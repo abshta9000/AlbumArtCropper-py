@@ -9,7 +9,10 @@ def crop_and_replace_album_art(input_file):
     # load MP3 file
     audiofile = eyed3.load(input_file)
 
-    # Ggt album art
+    if audiofile is None:
+        return
+    
+    # Get album art
     if audiofile.tag and audiofile.tag.images:
         # take the first image (assuming there is only one)
         image_data = audiofile.tag.images[0].image_data
